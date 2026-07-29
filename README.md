@@ -1,17 +1,31 @@
-# PulseBO: Constrained Bayesian Optimization of Pulsed Electrodeposition for Cobalt Selectivity
+# PulseBO: Gaussian-Process Models for Cobalt Selectivity in Pulsed Electrodeposition
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-orange.svg)](https://scikit-learn.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**PulseBO** is a constrained Bayesian-optimization workflow for pulsed electrodeposition. It fits two Gaussian-process (GP) surrogates — one for **Co selectivity** and one for **total deposition** — and uses them to propose the next round of experiments. Selectivity is maximized subject to a deposition-feasibility constraint, so the loop never recommends conditions that are predicted to be selective but unlikely to deposit enough material to measure.
+**PulseBO** collects Gaussian-process (GP) models for **cobalt selectivity** in Co/Ni pulsed electrodeposition. It brings two complementary approaches to the same problem together under one project, sharing a dataset and the same engineered pulse-shape features (applied voltage, duty cycle, period, total on-time):
+
+1. **Constrained Bayesian optimization** — a selectivity GP and a deposition GP drive a batch-BO loop that recommends the next experiments, treating deposition as a feasibility *constraint*.
+2. **Deposition-informed selectivity model (DSMM)** — a stacked model that predicts deposition first and feeds that prediction in as an *input* to the selectivity model, giving a prospectively deployable selectivity predictor.
+
+This repository currently implements approach 1 in the `pulse_bo` package (below); approach 2 is the companion model, summarized under Method Overview and added to the repository alongside it.
 
 ## 🎯 Key Features
+
+**Approach 1 — Constrained Bayesian optimization**
 
 - **Dual-GP, feasibility-aware surrogate**: a selectivity GP trained on feasible runs only, and a deposition GP trained on every run to learn where deposition fails.
 - **Constrained Expected Improvement**: candidates are ranked by `CEI = EI × P(feasible)`, coupling the two GPs so exploration is penalized where deposition is likely to fall short.
 - **Two-phase candidate generation**: a Sobol quasi-random sweep followed by L-BFGS-B refinement over the continuous pulse parameters, per voltage on a discrete grid.
 - **Diverse explore/exploit batches**: greedy selection with a minimum normalised-distance filter and a guard that reallocates explore slots when the pool is prior-dominated (no data nearby).
 - **Model diagnostics**: repeated k-fold cross-validation with calibration metrics (90% coverage, NLPD), a length-scale audit that flags effectively-ignored features, and out-of-fold parity plots.
+
+**Approach 2 — Deposition-informed selectivity model (DSMM)**
+
+- **Stacked predictor**: a deposition GP's prediction is added as an input feature to the selectivity model, so it stays usable *before* an experiment is run (unlike a model that needs measured deposition).
+- **Benchmarked**: compared against a controls-only selectivity model and a measured-deposition upper bound to isolate how much deposition information helps.
+- **Uncertainty propagation**: error from the upstream deposition model is carried into the selectivity prediction and quantified by nested bootstrap.
 
 ## 📋 Requirements
 
@@ -98,9 +112,11 @@ PulseBO/
 
 ## 🔬 Method Overview
 
-Both surrogates are Gaussian processes over engineered pulse-shape features — applied voltage, duty cycle (on-time / period), period (on + off time), and total on-time — which are less collinear than the raw on/off timings. A run is **feasible** if its total deposition clears the threshold in `config.DEP_BAD_THRESH`; the selectivity GP is fit on feasible runs only, while the deposition GP is fit on all runs so it can predict the feasibility probability of untested conditions.
+Both approaches use Gaussian processes over engineered pulse-shape features — applied voltage, duty cycle (on-time / period), period (on + off time), and total on-time — which are less collinear than the raw on/off timings. A run is **feasible** if its total deposition clears the threshold in `config.DEP_BAD_THRESH`.
 
-Each candidate is scored by **Constrained Expected Improvement**:
+### Approach 1 — Constrained Bayesian optimization
+
+The selectivity GP is fit on feasible runs only, while the deposition GP is fit on all runs so it can predict the feasibility probability of untested conditions. Each candidate is scored by **Constrained Expected Improvement**:
 
 ```
 CEI(x) = EI_selectivity(x) × P(deposition(x) ≥ threshold)
@@ -108,9 +124,13 @@ CEI(x) = EI_selectivity(x) × P(deposition(x) ≥ threshold)
 
 Candidates are generated per voltage by a Sobol sweep refined with L-BFGS-B, then a batch is assembled from the highest-CEI (exploit) and highest-uncertainty (explore) points under a diversity filter.
 
+### Approach 2 — Deposition-informed selectivity model (DSMM)
+
+Rather than using deposition as a constraint, this approach uses it as information. A deposition GP predicts total deposition from the pulse parameters, and that prediction is added as an input to the selectivity model (a stacked model). Because it relies on *predicted* rather than *measured* deposition, it can be applied prospectively. It is benchmarked against a controls-only selectivity model and a measured-deposition upper bound, and uncertainty from the upstream deposition model is propagated into the selectivity prediction via nested bootstrap.
+
 ## 🚀 Usage
 
-The workflow has three steps. Paths default to `data/cleaned_data.xlsx` and `results/`; override with flags.
+The commands below drive **approach 1** (the constrained-BO workflow). It has three steps; paths default to `data/cleaned_data.xlsx` and `results/`, and can be overridden with flags.
 
 ```bash
 # 1. Clean a raw experiment workbook into a single sheet
@@ -182,9 +202,23 @@ This work builds on several open-source projects:
 
 If you use this code, please cite:
 
+```bibtex
+@article{<citekey>,
+  title   = {<Paper title>},
+  author  = {<Author One> and <Author Two> and Yue, Shuwen},
+  journal = {<Journal / Preprint>},
+  year    = {2026},
+  doi     = {<DOI>},
+  note    = {Preprint}
+}
+```
 
 ## 📫 Contact
 
 For questions and feedback:
 
--**Author**:
+- **Corresponding author**: `<Name>` (`<email>`)
+
+## 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
