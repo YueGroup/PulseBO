@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+pulsebo_env/
+.pytest_cache/
+
+# NOTE: poetry.lock is intentionally committed (not ignored) so the exact
+# dependency versions are reproducible. Run `poetry lock` to (re)generate it.
+
+# Large / regenerable outputs
+results/candidates_full.csv
+*.tmp
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
