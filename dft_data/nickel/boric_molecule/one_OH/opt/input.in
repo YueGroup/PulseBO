@@ -1,0 +1,7 @@
+! M062X def2-SVP D3ZERO  Opt Freq TightSCF TightOpt NumFreq KeepDens
+%pal nprocs 16 end
+%maxcore 2000
+%cpcm
+epsilon 78
+end
+*  XYZFILE 2 3 config.xyz
