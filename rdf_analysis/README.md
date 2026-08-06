@@ -41,8 +41,8 @@ This directory contains Python scripts used to:
 ## Force Fields
 
 - **Water (SPC/E):** Berendsen, H. J. C.; Grigera, J. R.; Straatsma, T. P. *J. Phys. Chem.* **1987**, *91*, 6269–6271.
-- ** Nicke/cobalt:**  Babu, C. S.; Lim, C. *J. Phys. Chem. A* **2006**, *110*, 691-699.
-- **Sulfate anion :** Cannon, W. R.; Pettitt, B. M.; McCammon, J. A. *J. Phys. Chem.* **1994**, *98*, 6225-6230.
+- **Nicke/Cobalt:**  Babu, C. S.; Lim, C. *J. Phys. Chem. A* **2006**, *110*, 691-699.
+- **Sulfate Anion :** Cannon, W. R.; Pettitt, B. M.; McCammon, J. A. *J. Phys. Chem.* **1994**, *98*, 6225-6230.
 
 
 
