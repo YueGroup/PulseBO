@@ -6,12 +6,24 @@
 
 This repository contains AI-driven workflows for designing and optimizing pulsed electrodeposition experiments for selective cobalt and nickel separation. It also includes density functional theory (DFT) calculation data for investigating the interactions of nickel and cobalt  species with boric acid and borate, as well as molecular dynamics (MD) simulation input files and analysis scripts for characterizing the hydration structures of nickel and cobalt through radial distribution functions (RDFs) under different applied electric-field strengths.
 
+The repository includes three complementary components:
+
+### 1. AI-Driven Experimental Design (PulseBO)
+
 **PulseBO** collects Gaussian-process (GP) models for **cobalt selectivity** in Co/Ni pulsed electrodeposition. It brings two complementary approaches to the same problem together under one project, sharing a dataset and the same engineered pulse-shape features (applied voltage, duty cycle, period, total on-time):
 
 1. **Constrained Bayesian optimization** — a selectivity GP and a deposition GP drive a batch-BO loop that recommends the next experiments, treating deposition as a feasibility *constraint*.
 2. **Deposition-informed selectivity model (DSMM)** — a stacked model that predicts deposition first and feeds that prediction in as an *input* to the selectivity model, giving a prospectively deployable selectivity predictor.
 
 This repository currently implements approach 1 in the `pulse_bo` package (below); approach 2 is the companion model, summarized under Method Overview and added to the repository alongside it.
+
+### 2. Density Functional Theory (DFT)
+
+DFT calculation data are provided in the `dft_data/` directory. The dataset contains calculations of Ni(II) and Co(II) interactions with boric acid and borate species and is used to investigate the thermodynamics of metal–borate coordination, providing mechanistic insights into selective cobalt and nickel electrodeposition.
+
+### 3. Molecular Dynamics (MD)
+
+The `rdf_analysis/` directory contains MD simulation input files and analysis scripts for investigating the hydration structures of Ni(II) and Co(II) in SPC/E water under different E-field strengths. The analysis includes metal–water oxygen radial distribution functions (RDFs), first-shell coordination numbers (CNs), and changes in hydration-shell structure.
 
 ## 🎯 Key Features
 
