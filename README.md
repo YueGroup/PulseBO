@@ -1,8 +1,10 @@
-# PulseBO: Gaussian-Process Models for Cobalt Selectivity in Pulsed Electrodeposition
+# Selective Cobalt and Nickel Separation in Pulsed Electrodeposition
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-orange.svg)](https://scikit-learn.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+This repository contains AI-driven workflows for designing and optimizing pulsed electrodeposition experiments for selective cobalt and nickel separation. It also includes density functional theory (DFT) calculation data for investigating the interactions of nickel and cobalt  species with boric acid and borate, as well as molecular dynamics (MD) simulation input files and analysis scripts for characterizing the hydration structures of nickel and cobalt through radial distribution functions (RDFs) under different applied electric-field strengths.
 
 **PulseBO** collects Gaussian-process (GP) models for **cobalt selectivity** in Co/Ni pulsed electrodeposition. It brings two complementary approaches to the same problem together under one project, sharing a dataset and the same engineered pulse-shape features (applied voltage, duty cycle, period, total on-time):
 
