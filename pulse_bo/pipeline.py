@@ -65,6 +65,9 @@ def run_bo(data_file: str = DEFAULT_DATA_FILE,
     setup_logging(logfile=logfile)
 
     X_df, y_sel, y_dep, feasible = extract_features(data_file)
+    assert (len(X_df), int(feasible.sum())) == (285, 190), \
+    f"got {len(X_df)} points / {int(feasible.sum())} feasible, expected 285 / 190"
+
     X_raw = X_df.to_numpy(dtype=float)
 
     logger.info("Loaded %d points  |  feasible: %d  |  infeasible: %d  (%.1f%%)",
@@ -96,9 +99,9 @@ def run_bo(data_file: str = DEFAULT_DATA_FILE,
     logger.info("Selectivity GP: %s", gp_sel.kernel_)
     logger.info("Deposition  GP: %s", gp_dep.kernel_)
 
-    ls_sel_df = inspect_kernel_length_scales(gp_sel, X_COLS, BOUNDS, std_sel,
+    ls_sel_df = inspect_kernel_length_scales(gp_sel, X_COLS, X_df, std_sel,
                                              label="Selectivity GP")
-    ls_dep_df = inspect_kernel_length_scales(gp_dep, X_COLS, BOUNDS, std_dep,
+    ls_dep_df = inspect_kernel_length_scales(gp_dep, X_COLS, X_df, std_dep,
                                              label="Deposition GP")
     ls_sel_df.to_csv(os.path.join(results_dir, "length_scales_selectivity.csv"), index=False)
     ls_dep_df.to_csv(os.path.join(results_dir, "length_scales_deposition.csv"), index=False)

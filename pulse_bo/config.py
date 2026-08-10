@@ -24,17 +24,18 @@ Y_DEP_COL = "Total amount of deposition (ppm)"
 # Runs below this deposition (ppm) are treated as failed: their measured
 # selectivity is not meaningful, so they are excluded from the selectivity GP
 # and used as negative feasibility examples by the deposition GP.
-DEP_BAD_THRESH = 0.6188  # ppm
+DEP_BAD_THRESH = 0.2942  # ppm
 
 # --------------------------------------------------------------------------- #
 # Search space (raw feature units)
 # --------------------------------------------------------------------------- #
 BOUNDS = {
     "Applied V": (-1.5, -0.9),
-    "duty_cycle": (0.05, 0.95),
-    "period_ms": (10.0, 200000.0),
-    "total_von_ms": (10000.0, 1500000.0),
+    "duty_cycle": (0.005, 0.995),
+    "period_ms": (15.0, 5000.0),
+    "total_von_ms": (10000.0, 1000000.0),
 }
+MIN_PULSE_MS = 5.0  # shortest Von/Voff realized experimentally
 
 # Applied V is held to a discrete 0.1 V grid to match experimental constraints.
 APPLIED_V_GRID = np.arange(-1.5, -0.9 + 1e-9, 0.1)
