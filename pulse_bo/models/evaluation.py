@@ -93,7 +93,7 @@ def evaluate_hyperparameters(X_raw: np.ndarray, y: np.ndarray,
 
 def inspect_kernel_length_scales(gp: GaussianProcessRegressor,
                                  feature_names: list[str],
-                                 bounds: dict,
+                                 X_df: dict,
                                  scaler_std: np.ndarray,
                                  label: str = "GP") -> pd.DataFrame:
     """Convert learned length scales back to raw units and flag ignored features.
@@ -117,8 +117,8 @@ def inspect_kernel_length_scales(gp: GaussianProcessRegressor,
         ls_std = np.repeat(ls_std, len(feature_names))
 
     ls_raw = ls_std * scaler_std
-    bounds_ranges = np.array([bounds[f][1] - bounds[f][0] for f in feature_names])
-    ratio = ls_raw / bounds_ranges
+    data_ranges = X_df[feature_names].max().to_numpy() - X_df[feature_names].min().to_numpy()
+    ratio = ls_raw / data_ranges
 
     flags = []
     for r in ratio:
@@ -133,7 +133,7 @@ def inspect_kernel_length_scales(gp: GaussianProcessRegressor,
         "feature": feature_names,
         "ls_std_space": ls_std,
         "ls_raw_units": ls_raw,
-        "bounds_range": bounds_ranges,
+        "data_ranges": data_ranges,
         "ls_ratio": ratio,
         "verdict": flags,
     })
@@ -147,24 +147,20 @@ def inspect_kernel_length_scales(gp: GaussianProcessRegressor,
         "-" * 70,
     ]
     for _, row in df.iterrows():
-        lines.append(
-            f"{row['feature']:<18} {row['ls_std_space']:<12.4f} "
-            f"{row['ls_raw_units']:<14.4g} {row['bounds_range']:<14.4g} "
-            f"{row['ls_ratio']:<8.2f} {row['verdict']}"
-        )
-    lines.append("=" * 70)
+        print(f"{row['feature']:<18} {row['ls_std_space']:<12.4f} "
+              f"{row['ls_raw_units']:<14.4g} {row['data_ranges']:<14.4g} "
+              f"{row['ls_ratio']:<8.2f} {row['verdict']}")
+    print(f"{'='*70}")
 
     flagged = df[df["ls_ratio"] > 2.0]
     if flagged.empty:
-        lines.append("All features informative.")
+        print("All features informative.")
     else:
         for _, row in flagged.iterrows():
-            lo, hi = bounds[row["feature"]]
-            lines.append(
-                f"  {row['feature']}: ls={row['ls_raw_units']:.4g} vs range "
-                f"{row['bounds_range']:.4g} ({row['ls_ratio']:.1f}x) - "
-                f"GP surface nearly flat across [{lo}, {hi}]"
-            )
+            lo = X_df[row["feature"]].min()
+            hi = X_df[row["feature"]].max()
+            print(f"\n  {row['feature']}: ls={row['ls_raw_units']:.4g} vs range {row['data_ranges']:.4g} "
+                  f"({row['ls_ratio']:.1f}x) — GP surface nearly flat across [{lo:.4g}, {hi:.4g}]")
 
     logger.info("\n" + "\n".join(lines))
     return df

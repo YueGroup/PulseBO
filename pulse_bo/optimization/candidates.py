@@ -18,6 +18,7 @@ from ..config import (
     N_LBFGS_STARTS,
     N_LBFGS_CANDIDATES,
     XI,
+    MIN_PULSE_MS,
 )
 from ..data.features import scale
 from .acquisition import (
@@ -81,6 +82,11 @@ def generate_candidates(gp_sel, mean_sel, std_sel,
         all_X_rows.append(np.column_stack([np.full(len(cont_pool), v), cont_pool]))
 
     all_X = np.vstack(all_X_rows)
+    i_duty, i_per = names.index("duty_cycle"), names.index("period_ms")
+    von  = all_X[:, i_duty] * all_X[:, i_per]
+    voff = (1.0 - all_X[:, i_duty]) * all_X[:, i_per]
+    all_X = all_X[(von >= MIN_PULSE_MS) & (voff >= MIN_PULSE_MS)]
+
     X_sc_sel = scale(all_X, mean_sel, std_sel)
     X_sc_dep = scale(all_X, mean_dep, std_dep)
 
