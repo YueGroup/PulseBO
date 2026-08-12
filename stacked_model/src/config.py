@@ -1,8 +1,9 @@
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
-EXCEL_FILE = PROJECT_ROOT / "data" / "raw" / "cleaned_data.xlsx"
+EXCEL_FILE = REPO_ROOT / "data" / "cleaned_data.xlsx"
 SHEET_NAME = 0
 
 RESULTS_DIR = PROJECT_ROOT / "results"
