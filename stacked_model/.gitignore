@@ -1,0 +1,33 @@
+# Local environments
+.venv/
+venv/
+env/
+
+# Python caches and tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local run logs and scratch space
+*.log
+tmp/
+scratch/
+
+# Generated analysis artifacts
+# Keep final manuscript artifacts deliberately, not by accident.
+results/
+
+# Raw and prospective research data are internal by default.
+data/raw/
+data/prospective/
+
+# Historical working copies are internal by default.
+archive/
