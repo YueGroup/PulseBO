@@ -21,10 +21,6 @@ Thumbs.db
 tmp/
 scratch/
 
-# Generated analysis artifacts
-# Keep final manuscript artifacts deliberately, not by accident.
-results/
-
 # Raw and prospective research data are internal by default.
 data/raw/
 data/prospective/

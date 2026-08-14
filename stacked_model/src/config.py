@@ -18,8 +18,16 @@ SCALAR_SWEEP_RESULTS_DIR = RESULTS_DIR / "scalar_sweep"
 RAW_V_COL = "Applied V"
 RAW_VON_MS_COL = "Von (ms)"
 RAW_VOFF_MS_COL = "Voff (ms)"
-RAW_DEPOSITION_COL = "Total amount of deposition (moles)"
+RAW_DEPOSITION_COL = "Total amount of deposition (ppm)"
+DEPOSITION_UNITS = "ppm"
 TARGET_COL = "Co selectivity"
+
+# Feasibility is defined by the deposition threshold, not by a missing
+# selectivity value. The shared dataset reports a selectivity number for every
+# run, including sub-threshold runs where that number is not physically
+# meaningful, so a null-based filter would silently train on the full table.
+FEASIBILITY_THRESHOLD = 0.2942  # ppm, equivalent to 5e-9 mol
+FEASIBLE_ONLY = True
 
 CV_FOLDS = 5
 CV_REPEATS = 10

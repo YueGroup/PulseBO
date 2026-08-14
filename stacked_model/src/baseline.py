@@ -21,6 +21,7 @@ from src.config import (
     TOP_K,
     LOCAL_SCALE_FRAC,
 )
+from src.data import load_dataset
 
 from src.features import (
     add_engineered_features,
@@ -131,7 +132,7 @@ def run_baseline_comparison(
 
     rng = np.random.default_rng(RANDOM_SEED)
 
-    df = pd.read_excel(EXCEL_FILE, sheet_name=SHEET_NAME)
+    df = load_dataset()
     df = add_engineered_features(df)
 
     # Match your current validated feature structure

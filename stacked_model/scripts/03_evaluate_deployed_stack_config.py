@@ -12,6 +12,7 @@ from src.config import (
     SHEET_NAME,
     VALIDATION_RESULTS_DIR,
 )
+from src.data import load_dataset
 from src.features import (
     add_engineered_features,
     make_base_controllable_input_cols,
@@ -31,7 +32,7 @@ OUTDIR = VALIDATION_RESULTS_DIR / "deployed_stack_config"
 def main() -> dict:
     OUTDIR.mkdir(parents=True, exist_ok=True)
 
-    df = pd.read_excel(EXCEL_FILE, sheet_name=SHEET_NAME)
+    df = load_dataset()
     df = add_engineered_features(df)
 
     base_cols = make_base_controllable_input_cols(df)

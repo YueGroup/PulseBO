@@ -28,6 +28,7 @@ from src.config import (
     RAW_DEPOSITION_COL,
     VALIDATION_RESULTS_DIR,
 )
+from src.data import load_dataset
 from src.features import (
     add_engineered_features,
     make_base_controllable_input_cols,
@@ -1798,7 +1799,7 @@ def run_validation_analysis(
     """
     outdir.mkdir(parents=True, exist_ok=True)
 
-    df = pd.read_excel(EXCEL_FILE, sheet_name=SHEET_NAME)
+    df = load_dataset()
     df = add_engineered_features(df)
 
     base_cols = make_base_controllable_input_cols(df)
@@ -1980,7 +1981,7 @@ def run_monte_carlo_error_propagation() -> dict:
         exist_ok=True,
     )
 
-    df = pd.read_excel(EXCEL_FILE, sheet_name=SHEET_NAME)
+    df = load_dataset()
     df = add_engineered_features(df)
 
     base_cols = make_base_controllable_input_cols(df)
@@ -2050,7 +2051,7 @@ def run_bootstrap_error_propagation_best_stacked_model() -> dict:
     outdir.mkdir(parents=True, exist_ok=True)
 
     # Load data exactly the same way as run_validation_analysis()
-    df = pd.read_excel(EXCEL_FILE, sheet_name=SHEET_NAME)
+    df = load_dataset()
     df = add_engineered_features(df)
 
     base_cols = make_base_controllable_input_cols(df)

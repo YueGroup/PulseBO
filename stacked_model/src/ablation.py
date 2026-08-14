@@ -21,6 +21,7 @@ from src.config import (
     LOCAL_SCALE_FRAC,
     N_CANDIDATES,
 )
+from src.data import load_dataset
 from src.features import (
     add_engineered_features,
     make_base_controllable_input_cols,
@@ -141,7 +142,7 @@ def run_ablation_analysis(
 
     rng = np.random.default_rng(RANDOM_SEED)
 
-    df = pd.read_excel(EXCEL_FILE, sheet_name=SHEET_NAME)
+    df = load_dataset()
     df = add_engineered_features(df)
 
     base_cols = make_base_controllable_input_cols(df)

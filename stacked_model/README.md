@@ -28,17 +28,24 @@ The repository has been developed on Windows with Excel files read through `open
 
 ## Data Configuration
 
-The active input workbook is configured in `src/config.py`:
+All scripts read the shared repository dataset through `src/data.py`. The paths,
+column names, and feasibility threshold are configured in `src/config.py`:
 
 ```text
-data/raw/cleaned_data.xlsx
+workbook            ../data/cleaned_data.xlsx   (285 runs)
+deposition column   Total amount of deposition (ppm)
+target column       Co selectivity
+threshold           0.2942 ppm  (equivalent to 5e-9 mol)
 ```
 
-The active deposition column is:
+Models are trained on the 190 runs at or above the deposition threshold.
+Feasibility is defined by that threshold rather than by a missing selectivity
+value: the shared dataset reports a selectivity number for every run, including
+sub-threshold runs where that number is not physically meaningful, so a
+null-based filter would silently train on all 285 rows.
 
-```text
-Total amount of deposition (moles)
-```
+Deposition MAE and RMSE are therefore reported in ppm. R2 is unaffected by the
+choice of deposition units.
 
 Change these values only when intentionally starting a new scientific run.
 

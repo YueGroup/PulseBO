@@ -10,6 +10,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.config import RESULTS_DIR, EXCEL_FILE, SHEET_NAME, RAW_DEPOSITION_COL
+from src.data import load_dataset
 from src.features import add_engineered_features
 from src.plotting import (
     parity_plot,
@@ -46,7 +47,7 @@ if __name__ == "__main__":
     )
 
 
-    raw_df = pd.read_excel(EXCEL_FILE, sheet_name=SHEET_NAME)
+    raw_df = load_dataset()
     raw_df = add_engineered_features(raw_df)
 
     feature_cols = [
