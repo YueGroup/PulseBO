@@ -5,7 +5,7 @@ import logging
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import RepeatedKFold
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.gaussian_process import GaussianProcessRegressor
 
 from ..config import (
@@ -48,7 +48,7 @@ def evaluate_hyperparameters(X_raw: np.ndarray, y: np.ndarray,
     for kernel_name in KERNEL_NAMES:
         for n_restarts in N_RESTART_GRID:
             for alpha in ALPHA_GRID:
-                fold_rmse, fold_r2, fold_cov, fold_nlpd, fold_lml = [], [], [], [], []
+                fold_rmse, fold_mae, fold_r2, fold_cov, fold_nlpd, fold_lml = [], [], [], [], [], []
 
                 for fold_idx, (train_idx, test_idx) in enumerate(rkf.split(X_raw)):
                     X_tr_raw, X_te_raw = X_raw[train_idx], X_raw[test_idx]
@@ -64,6 +64,7 @@ def evaluate_hyperparameters(X_raw: np.ndarray, y: np.ndarray,
                     y_pred, y_std = gpr.predict(X_te, return_std=True)
 
                     fold_rmse.append(np.sqrt(mean_squared_error(y_te, y_pred)))
+                    fold_mae.append(mean_absolute_error(y_te, y_pred))
                     fold_r2.append(r2_score(y_te, y_pred))
                     fold_lml.append(gpr.log_marginal_likelihood(gpr.kernel_.theta))
                     cal = calibration_metrics(y_te, y_pred, y_std)
@@ -77,9 +78,12 @@ def evaluate_hyperparameters(X_raw: np.ndarray, y: np.ndarray,
                     "alpha": alpha,
                     "mean_rmse": float(np.mean(fold_rmse)),
                     "std_rmse": float(np.std(fold_rmse, ddof=0)),
+                    "mean_mae": float(np.mean(fold_mae)),
+                    "std_mae": float(np.std(fold_mae, ddof=0)),
                     "mean_r2": float(np.mean(fold_r2)),
                     "std_r2": float(np.std(fold_r2, ddof=0)),
                     "mean_coverage_90": float(np.mean(fold_cov)),
+                    "std_coverage_90": float(np.std(fold_cov, ddof=0)),
                     "mean_nlpd": float(np.mean(fold_nlpd)),
                     "mean_lml": float(np.mean(fold_lml)),
                 })
