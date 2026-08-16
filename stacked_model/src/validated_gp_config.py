@@ -18,7 +18,7 @@ BEST_MODEL_B_GP = {
 
 BEST_DEPOSITION_GP = {
     "kernel_type": "matern_1.5",
-    "n_restarts_optimizer": 10,
+    "n_restarts_optimizer": 0,
     "alpha": 0.01,
 }
 

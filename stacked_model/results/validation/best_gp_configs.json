@@ -1,0 +1,20 @@
+{
+    "BEST_MODEL_A_GP": {
+        "kernel_type": "matern_1.5",
+        "n_restarts_optimizer": 0,
+        "alpha": 0.01,
+        "rmse_mean": 5.831125661760646
+    },
+    "BEST_MODEL_B_GP": {
+        "kernel_type": "rbf",
+        "n_restarts_optimizer": 0,
+        "alpha": 1e-06,
+        "rmse_mean": 5.507973706548642
+    },
+    "BEST_DEPOSITION_GP": {
+        "kernel_type": "matern_1.5",
+        "n_restarts_optimizer": 0,
+        "alpha": 0.01,
+        "rmse_mean": 4.582308598926443
+    }
+}
