@@ -43,4 +43,7 @@ def load_dataset(feasible_only: bool | None = None) -> pd.DataFrame:
         keep = df[RAW_DEPOSITION_COL] >= FEASIBILITY_THRESHOLD
         df = df.loc[keep].reset_index(drop=True)
 
+    df["_sort_key"] = df["Solution Label"].astype(str).str.extract(r"(\d+)", expand=False).astype(int)
+    df = df.sort_values("_sort_key", kind="stable").drop(columns="_sort_key").reset_index(drop=True)
+
     return df
