@@ -1,62 +1,62 @@
-2026-08-16 14:01:52 | INFO    | Loaded 285 points  |  feasible: 190  |  infeasible: 95  (33.3%)
-2026-08-16 14:01:52 | INFO    | Feasibility threshold: y_dep >= 0.2942 ppm
-2026-08-16 14:01:52 | INFO    | Searching selectivity GP hyperparameters (feasible points only)...
-2026-08-16 14:16:47 | INFO    | Selectivity GP CV results (sorted by mean RMSE):
+2026-08-19 21:59:30 | INFO    | Loaded 285 points  |  feasible: 190  |  infeasible: 95  (33.3%)
+2026-08-19 21:59:30 | INFO    | Feasibility threshold: y_dep >= 0.2942 ppm
+2026-08-19 21:59:30 | INFO    | Searching selectivity GP hyperparameters (feasible points only)...
+2026-08-19 22:11:54 | INFO    | Selectivity GP CV results (sorted by mean RMSE):
         kernel  n_restarts        alpha  mean_rmse  std_rmse  mean_r2  mean_coverage_90  mean_nlpd   mean_lml
-White + Matern           8 1.000000e-06   5.712801  1.441525 0.821568          0.876316   3.246482 -83.756004
-White + Matern           8 1.000000e-10   5.733424  1.424368 0.820391          0.873684   3.251704 -83.716178
-White + Matern           8 1.000000e-04   5.757534  1.415972 0.819133          0.874211   3.257870 -83.688586
-White + Matern          16 1.000000e-04   5.788058  1.389757 0.817751          0.875789   3.265750 -83.672417
-White + Matern          16 1.000000e-06   5.800868  1.429846 0.816367          0.876842   3.273866 -83.675858
-White + Matern          16 1.000000e-10   5.813171  1.414955 0.815920          0.875789   3.274678 -83.666293
-   White + RBF           8 1.000000e-06   5.863342  1.496268 0.811840          0.868947   3.253306 -85.668129
-   White + RBF           8 1.000000e-04   5.869982  1.499629 0.811367          0.868947   3.256134 -85.638017
-   White + RBF           8 1.000000e-10   5.891070  1.464281 0.810722          0.867895   3.257876 -85.667435
-   White + RBF          16 1.000000e-06   5.938639  1.442268 0.808176          0.864737   3.267889 -85.616386
-   White + RBF          16 1.000000e-10   5.938881  1.442088 0.808165          0.864737   3.267956 -85.620723
-   White + RBF          16 1.000000e-04   5.953606  1.448920 0.807145          0.864737   3.272981 -85.556214
-2026-08-16 14:16:47 | INFO    | Best: White + Matern, alpha=1e-06, n_restarts=8, RMSE=5.7128, R2=0.822, cov90=0.876
-2026-08-16 14:16:47 | INFO    | Searching deposition GP hyperparameters (all points)...
-2026-08-16 14:48:01 | INFO    | Deposition GP CV results (sorted by mean RMSE):
+White + Matern          16 1.000000e-06   5.591874  1.337052 0.828962          0.885263   3.200700 -84.936136
+White + Matern           8 1.000000e-06   5.591958  1.337048 0.828957          0.885263   3.200699 -84.936245
+White + Matern          16 1.000000e-04   5.609700  1.331584 0.828109          0.884211   3.206109 -84.907414
+White + Matern          16 1.000000e-10   5.609784  1.331581 0.828105          0.884211   3.205772 -84.907520
+White + Matern           8 1.000000e-10   5.609823  1.331532 0.828104          0.884211   3.205629 -84.910625
+White + Matern           8 1.000000e-04   5.609828  1.331528 0.828103          0.884211   3.205966 -84.910629
+   White + RBF           8 1.000000e-06   5.751594  1.307056 0.819922          0.882632   3.199739 -86.601990
+   White + RBF           8 1.000000e-10   5.751600  1.307052 0.819922          0.882632   3.199738 -86.601992
+   White + RBF          16 1.000000e-06   5.754061  1.309544 0.819684          0.882105   3.200200 -86.598155
+   White + RBF          16 1.000000e-04   5.765292  1.291946 0.819325          0.880526   3.204032 -86.588114
+   White + RBF           8 1.000000e-04   5.765545  1.291953 0.819311          0.880526   3.204066 -86.591386
+   White + RBF          16 1.000000e-10   5.767445  1.329086 0.818718          0.883158   3.203438 -86.592346
+2026-08-19 22:11:54 | INFO    | Best: White + Matern, alpha=1e-06, n_restarts=16, RMSE=5.5919, R2=0.829, cov90=0.885
+2026-08-19 22:11:54 | INFO    | Searching deposition GP hyperparameters (all points)...
+2026-08-19 22:40:29 | INFO    | Deposition GP CV results (sorted by mean RMSE):
         kernel  n_restarts        alpha  mean_rmse  std_rmse  mean_r2  mean_coverage_90  mean_nlpd   mean_lml
-White + Matern           8 1.000000e-06   2.557519  0.430240 0.927003          0.890175   2.430669 -55.496690
-White + Matern           8 1.000000e-04   2.557519  0.430240 0.927003          0.890175   2.431257 -55.496690
-White + Matern          16 1.000000e-04   2.557519  0.430240 0.927003          0.890175   2.431257 -55.496690
-White + Matern          16 1.000000e-06   2.557519  0.430240 0.927003          0.890175   2.430669 -55.496690
-White + Matern           8 1.000000e-10   2.557519  0.430240 0.927003          0.890175   2.430663 -55.496690
-White + Matern          16 1.000000e-10   2.557519  0.430240 0.927003          0.890175   2.430663 -55.496690
-   White + RBF           8 1.000000e-06   2.634800  0.405836 0.922588          0.882456   2.440990 -62.552821
-   White + RBF          16 1.000000e-06   2.634800  0.405836 0.922588          0.882456   2.440990 -62.552821
-   White + RBF           8 1.000000e-10   2.634800  0.405836 0.922588          0.882456   2.440988 -62.552821
-   White + RBF          16 1.000000e-10   2.634800  0.405836 0.922588          0.882456   2.440988 -62.552821
-   White + RBF           8 1.000000e-04   2.642519  0.410997 0.922211          0.880702   2.446998 -62.469380
-   White + RBF          16 1.000000e-04   2.642519  0.410997 0.922211          0.880702   2.446998 -62.469380
-2026-08-16 14:48:01 | INFO    | Best: White + Matern, alpha=1e-06, n_restarts=8, RMSE=2.5575e+00, R2=0.927, cov90=0.890
-2026-08-16 14:48:01 | INFO    | Fitting final models on full dataset...
-2026-08-16 14:48:05 | INFO    | Selectivity GP: WhiteKernel(noise_level=0.0452) + Matern(length_scale=[1.4, 1.32, 1.77, 2.03], nu=1.5)
-2026-08-16 14:48:05 | INFO    | Deposition  GP: WhiteKernel(noise_level=0.0319) + Matern(length_scale=[1.82, 1.33, 3.96, 1.36], nu=1.5)
-2026-08-16 14:48:05 | INFO    | 
+White + Matern           8 1.000000e-06   2.572762  0.449557 0.926117          0.890526   2.518154 -55.357660
+White + Matern           8 1.000000e-04   2.572762  0.449557 0.926117          0.889825   2.523402 -55.357660
+White + Matern          16 1.000000e-04   2.572762  0.449557 0.926117          0.889825   2.523403 -55.357660
+White + Matern          16 1.000000e-06   2.572762  0.449557 0.926117          0.890526   2.518154 -55.357660
+White + Matern          16 1.000000e-10   2.572762  0.449557 0.926117          0.890526   2.518104 -55.357660
+White + Matern           8 1.000000e-10   2.572762  0.449557 0.926117          0.890526   2.518104 -55.357660
+   White + RBF          16 1.000000e-04   2.623406  0.407967 0.923236          0.884561   2.429105 -62.703833
+   White + RBF           8 1.000000e-04   2.623406  0.407967 0.923236          0.884561   2.429105 -62.703833
+   White + RBF           8 1.000000e-10   2.627573  0.410646 0.923029          0.884561   2.432636 -62.652712
+   White + RBF           8 1.000000e-06   2.627573  0.410646 0.923029          0.884561   2.432638 -62.652712
+   White + RBF          16 1.000000e-10   2.629052  0.412622 0.922939          0.884912   2.433560 -62.649510
+   White + RBF          16 1.000000e-06   2.629052  0.412623 0.922939          0.884912   2.433562 -62.649510
+2026-08-19 22:40:29 | INFO    | Best: White + Matern, alpha=1e-06, n_restarts=8, RMSE=2.5728e+00, R2=0.926, cov90=0.891
+2026-08-19 22:40:29 | INFO    | Fitting final models on full dataset...
+2026-08-19 22:40:34 | INFO    | Selectivity GP: WhiteKernel(noise_level=0.0452) + Matern(length_scale=[1.4, 1.32, 1.77, 2.03], nu=1.5)
+2026-08-19 22:40:34 | INFO    | Deposition  GP: WhiteKernel(noise_level=0.0319) + Matern(length_scale=[1.82, 1.33, 3.96, 1.36], nu=1.5)
+2026-08-19 22:40:34 | INFO    | 
 ======================================================================
 Length-scale audit - Selectivity GP
 ======================================================================
 Feature            ls (std)     ls (raw)       range          ratio    Verdict
 ----------------------------------------------------------------------
-2026-08-16 14:48:05 | INFO    | 
+2026-08-19 22:40:34 | INFO    | 
 ======================================================================
 Length-scale audit - Deposition GP
 ======================================================================
 Feature            ls (std)     ls (raw)       range          ratio    Verdict
 ----------------------------------------------------------------------
-2026-08-16 14:48:05 | INFO    | Generating candidates (Sobol + L-BFGS-B), y_best = 90.4499...
-2026-08-16 14:48:13 | INFO    | [select_batch] Prior-dominated explore pool (std spread 0.0027 < tol 0.01). Capping explore: 5 -> 2, freed slots go to exploit.
-2026-08-16 14:48:13 | INFO    | Recommended batch (15 candidates):
+2026-08-19 22:40:34 | INFO    | Generating candidates (Sobol + L-BFGS-B), y_best = 90.4499...
+2026-08-19 22:40:41 | INFO    | [select_batch] Prior-dominated explore pool (std spread 0.0027 < tol 0.01). Capping explore: 5 -> 2, freed slots go to exploit.
+2026-08-19 22:40:42 | INFO    | Recommended batch (15 candidates):
  Applied V  duty_cycle   period_ms  total_von_ms  pred_sel_mean  pred_sel_std  p_feasible      cei selection_type
-      -1.0    0.580842 1664.637862 933295.580611      88.049127      7.879721    0.987509 2.043151        exploit
-      -1.0    0.507391 2019.467855 947724.086353      88.594009      7.253241    0.980266 1.999739        exploit
-      -1.0    0.693348 2065.557850 939538.380401      88.664375      7.114175    0.980514 1.975070        exploit
-      -1.1    0.590906 2123.193511 936277.096877      87.072828      8.701866    0.969648 1.962371        exploit
+      -1.0    0.580864 1664.385584 933295.371126      88.047949      7.880913    0.987506 2.043151        exploit
+      -1.0    0.507391 2019.467855 947724.086353      88.594011      7.253238    0.980266 1.999739        exploit
+      -1.0    0.693348 2065.557850 939538.380401      88.664375      7.114174    0.980514 1.975070        exploit
+      -1.1    0.590906 2123.193511 936277.096877      87.072829      8.701865    0.969648 1.962371        exploit
       -1.0    0.676722 1435.971028 928500.063270      86.295915      9.366314    0.974804 1.954301        exploit
-      -0.9    0.591148 2223.807441 935397.773087      87.142870      8.552119    0.970572 1.934168        exploit
+      -0.9    0.591161 2224.133223 935397.589758      87.143347      8.551656    0.970574 1.934168        exploit
       -1.0    0.502260 2984.353482 945494.603207      88.295379      7.387653    0.978690 1.933143        exploit
       -1.0    0.716113 2752.431640 942613.496408      88.405388      7.251226    0.975063 1.916394        exploit
       -1.0    0.431257 2405.327224 925665.612910      87.110021      8.610881    0.954435 1.911838        exploit
@@ -66,4 +66,4 @@ Feature            ls (std)     ls (raw)       range          ratio    Verdict
       -0.9    0.593388 2929.403668 939293.548195      86.733321      8.801847    0.969061 1.884658        exploit
       -1.5    0.007001 4989.163124 998542.077327      68.831300     14.459465    0.789690 0.335727        explore
       -1.5    0.023307 4901.331635 815359.180439      68.553784     14.456199    0.780076 0.317083        explore
-2026-08-16 14:48:13 | INFO    | Saved results to results/: cv_selectivity_gp.csv, cv_deposition_gp.csv, length_scales_selectivity.csv, length_scales_deposition.csv, batch_recommendations.csv, candidates_full.csv, run.log
+2026-08-19 22:40:42 | INFO    | Saved results to results/: cv_selectivity_gp.csv, cv_deposition_gp.csv, length_scales_selectivity.csv, length_scales_deposition.csv, batch_recommendations.csv, candidates_full.csv, run.log

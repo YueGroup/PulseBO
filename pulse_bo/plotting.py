@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 # selectivity GP family).
 KERNEL = "White + Matern"
 ALPHA = 1e-6
-N_RESTARTS = 16
+N_RESTARTS = 8
 
 
 def get_oof_predictions(X_raw, y, kernel=KERNEL, alpha=ALPHA, n_restarts=N_RESTARTS):
