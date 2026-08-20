@@ -7,13 +7,13 @@ Generated automatically by scripts/02_select_best_gp.py
 BEST_MODEL_A_GP = {
     "kernel_type": "matern_1.5",
     "n_restarts_optimizer": 0,
-    "alpha": 0.01,
+    "alpha": 1e-10,
 }
 
 BEST_MODEL_B_GP = {
     "kernel_type": "rbf",
     "n_restarts_optimizer": 0,
-    "alpha": 1e-06,
+    "alpha": 0.01,
 }
 
 BEST_DEPOSITION_GP = {

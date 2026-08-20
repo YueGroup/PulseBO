@@ -2,19 +2,19 @@
     "BEST_MODEL_A_GP": {
         "kernel_type": "matern_1.5",
         "n_restarts_optimizer": 0,
-        "alpha": 0.01,
-        "rmse_mean": 5.831125661760646
+        "alpha": 1e-10,
+        "rmse_mean": 5.678499689998842
     },
     "BEST_MODEL_B_GP": {
         "kernel_type": "rbf",
         "n_restarts_optimizer": 0,
-        "alpha": 1e-06,
-        "rmse_mean": 5.507973706548642
+        "alpha": 0.01,
+        "rmse_mean": 5.349084714321098
     },
     "BEST_DEPOSITION_GP": {
         "kernel_type": "matern_1.5",
         "n_restarts_optimizer": 0,
         "alpha": 0.01,
-        "rmse_mean": 4.582308598926443
+        "rmse_mean": 4.603525284041718
     }
 }
