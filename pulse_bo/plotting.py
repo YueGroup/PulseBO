@@ -3,6 +3,8 @@
 import logging
 
 import numpy as np
+import pandas as pd
+import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import RepeatedKFold
@@ -18,7 +20,8 @@ logger = logging.getLogger(__name__)
 # selectivity GP family).
 KERNEL = "White + Matern"
 ALPHA = 1e-6
-N_RESTARTS = 16
+_cv = pd.read_csv(os.path.join("results", "cv_selectivity_gp.csv")).iloc[0]
+N_RESTARTS = int(_cv["n_restarts"])
 
 
 def get_oof_predictions(X_raw, y, kernel=KERNEL, alpha=ALPHA, n_restarts=N_RESTARTS):

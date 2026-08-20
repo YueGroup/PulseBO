@@ -55,6 +55,10 @@ def extract_features(file: str):
         needed = RAW_X_COLS + [Y_SEL_COL, Y_DEP_COL]
         if not all(c in df.columns for c in needed):
             continue
+        if "Solution Label" in df.columns:
+            key = df["Solution Label"].astype(str).str.extract(r"(\d+)", expand=False).astype(float)
+            df = df.assign(_sort_key=key).sort_values("_sort_key", kind="stable").drop(columns="_sort_key")
+        sub = df[needed].dropna()
         sub = df[needed].dropna()
         if sub.empty:
             continue
