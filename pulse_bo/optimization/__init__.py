@@ -1,4 +1,6 @@
-"""Constrained Bayesian optimization: acquisition, candidates, batch selection."""
+"""
+Acquisition functions, candidate generation, and batch selection.
+"""
 
 from .acquisition import (
     expected_improvement,

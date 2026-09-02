@@ -1,14 +1,11 @@
-"""Greedy batch selection.
-
-Chooses an exploit set (highest CEI) and an explore set (highest posterior std),
-subject to a minimum normalised-distance diversity filter so the batch spreads
-across the search space rather than clustering. If the explore pool is
-"prior-dominated" (every candidate has essentially the GP prior std, i.e. no data
-nearby), explore slots are capped and freed slots are given to exploit.
+"""
+Selects the recommended batch as an exploit set and an explore set under a diversity filter.
 """
 
+# Library import
 import logging
 
+# Third party imports
 import numpy as np
 import pandas as pd
 
@@ -26,7 +23,6 @@ logger = logging.getLogger(__name__)
 
 def _detect_prior_dominated_explore(explore_pool: pd.DataFrame,
                                     tol: float = STD_SIMILARITY_TOL) -> tuple[bool, int]:
-    """True if all explore candidates share nearly the same posterior std."""
     stds = explore_pool["pred_sel_std"].to_numpy()
     if len(stds) < 2:
         return False, EXPLORE_K
@@ -42,7 +38,7 @@ def select_batch(candidates_df: pd.DataFrame,
                  explore_k: int = EXPLORE_K,
                  min_dist: float = MIN_DIST_THRESHOLD,
                  std_tol: float = STD_SIMILARITY_TOL) -> pd.DataFrame:
-    """Return a diverse exploit+explore batch with a ``selection_type`` column."""
+    """Returns the exploit and explore batch with a selection_type column."""
     feat_cols = list(BOUNDS.keys())
     lo = np.array([BOUNDS[c][0] for c in feat_cols])
     hi = np.array([BOUNDS[c][1] for c in feat_cols])

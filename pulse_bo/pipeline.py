@@ -1,14 +1,16 @@
-"""End-to-end BO pipeline: CV -> fit -> length-scale audit -> candidates -> batch.
-
-``run_bo`` ties the stages together and backs the ``pulse-bo-run`` console entry
-point.
+"""
+Runs the full workflow: cross validation, model fitting, length scale audit,
+candidate generation, and batch selection.
 """
 
+# Library import
 import logging
 import os
 
+# Third party imports
 import pandas as pd
 
+# Local imports
 from .config import (
     X_COLS,
     BOUNDS,
@@ -46,20 +48,7 @@ def run_bo(data_file: str = DEFAULT_DATA_FILE,
            results_dir: str = DEFAULT_RESULTS_DIR,
            save_candidates: bool = True,
            write_log: bool = True):
-    """Run the full workflow and write result CSVs into ``results_dir``.
-
-    Parameters
-    ----------
-    data_file : str
-        Path to the cleaned single-sheet workbook.
-    results_dir : str
-        Directory for output CSVs and the run log (created if needed).
-    save_candidates : bool
-        If False, skip writing the large ``candidates_full.csv``.
-    write_log : bool
-        If True, write a timestamped ``run.log`` into ``results_dir`` alongside
-        the CSVs, giving each run a self-describing record.
-    """
+    """Runs the full optimization workflow and writes result files to results_dir."""
     os.makedirs(results_dir, exist_ok=True)
     logfile = os.path.join(results_dir, "run.log") if write_log else None
     setup_logging(logfile=logfile)

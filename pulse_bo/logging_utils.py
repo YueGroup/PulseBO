@@ -1,10 +1,8 @@
-"""Logging configuration for the pulse_bo workflow.
-
-Console output uses a bare, unadorned format so interactive runs stay readable;
-the optional file handler is timestamped so a completed run leaves a
-self-describing log for provenance.
+"""
+Logging configuration for the pulse_bo workflow.
 """
 
+# Library import
 import logging
 import os
 import sys
@@ -15,6 +13,7 @@ PACKAGE_LOGGER = "pulse_bo"
 def setup_logging(logfile: str | None = None,
                   level: int = logging.INFO,
                   console: bool = True) -> logging.Logger:
+    """Configures console and optional file logging for the package."""
     """Configure the package logger. Safe to call more than once.
 
     Parameters

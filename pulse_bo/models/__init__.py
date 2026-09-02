@@ -1,4 +1,6 @@
-"""Gaussian-process models and their evaluation."""
+"""
+Gaussian process models and their evaluation.
+"""
 
 from .gp import build_kernel, make_gpr, fit_final_models
 from .evaluation import (

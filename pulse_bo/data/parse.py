@@ -1,13 +1,14 @@
-"""Raw experiment workbook -> single clean sheet.
+"""
+Cleans a raw experiment workbook into a single sheet.
 
-Handles the column renaming between the v3-v5 and v6 spreadsheet formats,
-computes total on-time in milliseconds, and drops sheets that use a non-zero
-stripping voltage (the GP has no ``V_stripping`` feature, so those runs are not
-comparable).
+Sheets that use a non-zero stripping voltage are dropped because the models have
+no stripping voltage feature.
 """
 
+# Library import
 import logging
 
+# Third party imports
 import pandas as pd
 import numpy as np
 
@@ -97,6 +98,7 @@ def _clean_sheet(df: pd.DataFrame, sheet_name: str) -> tuple[pd.DataFrame, list[
 
 
 def parse(source: str, dest: str) -> None:
+    """Cleans a raw workbook into a single sheet."""
     """Read a raw workbook and write a single cleaned sheet to ``dest``."""
     xl = pd.ExcelFile(source)
     logger.info("Reading %s  (%s)", source, xl.sheet_names)

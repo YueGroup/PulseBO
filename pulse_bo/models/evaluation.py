@@ -1,13 +1,18 @@
-"""Model evaluation: repeated k-fold CV, calibration, and length-scale audit."""
+"""
+Runs repeated k-fold cross validation, calibration metrics, and the length scale audit.
+"""
 
+# Library import
 import logging
 
+# Third party imports
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import RepeatedKFold
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.gaussian_process import GaussianProcessRegressor
 
+# Local imports
 from ..config import (
     N_SPLITS,
     N_REPEATS,
@@ -23,7 +28,6 @@ logger = logging.getLogger(__name__)
 
 def calibration_metrics(y_true: np.ndarray, y_pred: np.ndarray,
                         y_std: np.ndarray) -> dict:
-    """90% prediction-interval coverage and NLPD (both lower-is-better for NLPD)."""
     z90 = 1.645
     coverage = float(np.mean((y_true >= y_pred - z90 * y_std) &
                              (y_true <= y_pred + z90 * y_std)))
@@ -37,11 +41,7 @@ def calibration_metrics(y_true: np.ndarray, y_pred: np.ndarray,
 
 def evaluate_hyperparameters(X_raw: np.ndarray, y: np.ndarray,
                              label: str = "model") -> tuple[pd.DataFrame, dict]:
-    """Grid-search kernel x n_restarts x alpha with repeated k-fold CV.
-
-    Scaling is re-fit inside every fold on the training split only. Returns the
-    full results table (sorted by mean RMSE) and the best-row dict.
-    """
+    """Grid searches kernel, restarts, and alpha under repeated k-fold cross validation."""
     rkf = RepeatedKFold(n_splits=N_SPLITS, n_repeats=N_REPEATS, random_state=42)
     results = []
 
@@ -100,11 +100,7 @@ def inspect_kernel_length_scales(gp: GaussianProcessRegressor,
                                  X_df: dict,
                                  scaler_std: np.ndarray,
                                  label: str = "GP") -> pd.DataFrame:
-    """Convert learned length scales back to raw units and flag ignored features.
-
-    A length scale much larger than a feature's search range means the GP surface
-    is nearly flat in that feature, i.e. the feature is effectively ignored.
-    """
+    """Converts learned length scales to raw units and flags uninformative features."""
     kernel = gp.kernel_
     ls_std = None
     for component in [kernel, getattr(kernel, "k1", None), getattr(kernel, "k2", None)]:

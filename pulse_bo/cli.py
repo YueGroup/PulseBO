@@ -1,13 +1,12 @@
-"""Command-line entry points (registered as console scripts in pyproject.toml).
-
-    pulse-bo-parse RAW.xlsx CLEAN.xlsx  # clean a raw workbook into one sheet
-    pulse-bo-run [--data DATA] [--results DIR] [--no-candidates]
-    pulse-bo-parity [--data DATA] [--out FILE]
+"""
+Command line entry points registered as console scripts in pyproject.toml.
 """
 
+# Library import
 import argparse
 import logging
 
+# Local imports
 from .config import DEFAULT_DATA_FILE, DEFAULT_RESULTS_DIR
 from .logging_utils import setup_logging
 from .data.parse import parse

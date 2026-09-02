@@ -1,16 +1,14 @@
-"""Two-phase candidate generation.
-
-For each voltage on the discrete grid: (1) a Sobol quasi-random sweep over the
-continuous dimensions scored by CEI, then (2) L-BFGS-B refinement seeded from the
-best Sobol points. All points are pooled, scored once more, and returned sorted
-by CEI.
+"""
+Generates candidate conditions by a Sobol sweep followed by L-BFGS-B refinement at each voltage.
 """
 
+# Third party imports
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
 from scipy.stats import qmc
 
+# Local imports
 from ..config import (
     BOUNDS,
     APPLIED_V_GRID,
@@ -37,7 +35,7 @@ def generate_candidates(gp_sel, mean_sel, std_sel,
                         n_lbfgs_starts: int = N_LBFGS_STARTS,
                         n_lbfgs_pool: int = N_LBFGS_CANDIDATES,
                         xi: float = XI) -> pd.DataFrame:
-    """Return a DataFrame of scored candidates sorted by descending CEI."""
+    """Returns scored candidate conditions sorted by descending CEI."""
     if applied_v_grid is None:
         applied_v_grid = APPLIED_V_GRID
 

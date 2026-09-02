@@ -1,23 +1,27 @@
-"""Out-of-fold parity plotting for the selectivity GP surrogate."""
+"""
+Builds the out-of-fold parity figure for the selectivity GP.
+"""
 
+# Library import
 import logging
+import os
 
+# Third party imports
 import numpy as np
 import pandas as pd
-import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import RepeatedKFold
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
+# Local imports
 from .config import N_SPLITS, N_REPEATS
 from .data.features import extract_features, fit_scaler, scale
 from .models.gp import make_gpr
 
 logger = logging.getLogger(__name__)
 
-# Fixed surrogate configuration used for the parity figure (matches the BO
-# selectivity GP family).
+# Surrogate configuration, taken from the selected cross validation result
 KERNEL = "White + Matern"
 ALPHA = 1e-6
 _cv = pd.read_csv(os.path.join("results", "cv_selectivity_gp.csv")).iloc[0]
@@ -25,7 +29,6 @@ N_RESTARTS = int(_cv["n_restarts"])
 
 
 def get_oof_predictions(X_raw, y, kernel=KERNEL, alpha=ALPHA, n_restarts=N_RESTARTS):
-    """Repeated-k-fold out-of-fold predictions, averaged across repeats."""
     rkf = RepeatedKFold(n_splits=N_SPLITS, n_repeats=N_REPEATS, random_state=42)
 
     prediction_sum = np.zeros(len(y), dtype=float)
