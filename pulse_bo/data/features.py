@@ -38,7 +38,6 @@ def extract_features(file: str):
             key = df["Solution Label"].astype(str).str.extract(r"(\d+)", expand=False).astype(float)
             df = df.assign(_sort_key=key).sort_values("_sort_key", kind="stable").drop(columns="_sort_key")
         sub = df[needed].dropna()
-        sub = df[needed].dropna()
         if sub.empty:
             continue
         X_list.append(engineer_features(sub))
